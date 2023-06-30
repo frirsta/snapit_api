@@ -15,7 +15,7 @@ class Post(models.Model):
     image = models.ImageField(upload_to='snapit/', blank=True)
     video = models.ImageField(upload_to='snapit/', blank=True, storage=VideoMediaCloudinaryStorage(),
                               validators=[validate_video])
-    raw_file = models.ImageField(upload_to='snapit/', blank=True, storage=RawMediaCloudinaryStorage())
+    file = models.ImageField(upload_to='snapit/', blank=True, storage=RawMediaCloudinaryStorage())
 
     class Meta:
         ordering = ['created_date']
