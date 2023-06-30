@@ -57,10 +57,6 @@ CORS_ALLOWED_ORIGIN_REGEXES = [
     r"^https://\w+\.snapit-48a119de42d0.herokuapp\.com$",
 ]
 
-if 'CLIENT_ORIGIN' in os.environ:
-    CORS_ALLOWED_ORIGINS = [
-        os.environ.get('CLIENT_ORIGIN')
-    ]
 
 CORS_ALLOW_CREDENTIALS = True
 
