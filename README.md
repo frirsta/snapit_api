@@ -14,3 +14,8 @@ pip install django-cors-headers
 
 default profile image
 <a href="https://www.flaticon.com/free-icons/user" title="user icons">User icons created by Becris - Flaticon</a>
+
+pip install dj3-cloudinary-storage
+Install Pillow
+pip install Pillow
+pip install python-magic-bin
