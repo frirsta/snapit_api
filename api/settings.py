@@ -40,7 +40,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = False
 
 ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOST'),
-                 'localhost', '127.0.0.1', "localhost:3000",]
+                 'localhost', '127.0.0.1', "http://localhost:3000",]
 
 
 CORS_ALLOWED_ORIGINS = [
