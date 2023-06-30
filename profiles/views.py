@@ -9,6 +9,7 @@ from django.db.models import Count
 
 
 class UserList(generics.ListAPIView):
+    permission_classes = [IsOwnerOrReadOnly]
     queryset = Profile.objects.annotate(
         posts_count=Count('owner__post', distinct=True),
         follower_count=Count(
