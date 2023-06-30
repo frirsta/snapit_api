@@ -43,12 +43,14 @@ ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOST'),
                  'localhost', '127.0.0.1']
 
 
-CORS_ORIGIN_ALLOW_ALL = False
-CORS_ORIGIN_WHITELIST = (
-    'snapit-48a119de42d0.herokuapp.com',
-    'localhost:3000',
-)
+CORS_ALLOWED_ORIGINS = [
+    "https://snapit-48a119de42d0.herokuapp.com",
+    "http://localhost:3000",
+]
 
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https://\w+\.snapit-48a119de42d0.herokuapp\.com$",
+]
 
 if 'CLIENT_ORIGIN' in os.environ:
     CORS_ALLOWED_ORIGINS = [
