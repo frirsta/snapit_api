@@ -13,7 +13,7 @@ class Post(models.Model):
     updated_date = models.DateTimeField(auto_now=True)
     caption = models.TextField(max_length=250)
     image = models.ImageField(upload_to='snapit/', blank=True)
-    video = models.ImageField(upload_to='snapit/', blank=True, storage=VideoMediaCloudinaryStorage(),
+    video = models.FileField(upload_to='snapit/', blank=True, storage=VideoMediaCloudinaryStorage(),
                               validators=[validate_video])
     file = models.ImageField(upload_to='snapit/', blank=True, storage=RawMediaCloudinaryStorage())
 
