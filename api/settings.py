@@ -40,12 +40,13 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = False
 
 ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOST'),
-                 'localhost', '127.0.0.1', 'http://localhost:3000']
+                 'localhost', '127.0.0.1']
+
 
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = (
-    'https://snapit-48a119de42d0.herokuapp.com',
-    'http://localhost:3000',
+    'snapit-48a119de42d0.herokuapp.com',
+    'localhost:3000',
 )
 
 
