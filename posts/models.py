@@ -1,7 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 from cloudinary_storage.storage import RawMediaCloudinaryStorage
-from cloudinary.models import CloudinaryField
+from cloudinary_storage.storage import VideoMediaCloudinaryStorage
+from cloudinary_storage.validators import validate_video
+
 
 class Post(models.Model):
     """
@@ -11,8 +13,9 @@ class Post(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
     caption = models.TextField(max_length=250)
-    image = CloudinaryField('image')
-    video = CloudinaryField('video')
+    image = models.ImageField(upload_to='snapit/', blank=True)
+    video = models.FileField(upload_to='snapit/', blank=True, storage=VideoMediaCloudinaryStorage(),
+                              validators=[validate_video])
     file = models.ImageField(upload_to='snapit/', blank=True, storage=RawMediaCloudinaryStorage())
 
     class Meta:
