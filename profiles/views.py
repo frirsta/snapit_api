@@ -12,7 +12,9 @@ class UserList(generics.ListAPIView):
     queryset = Profile.objects.annotate(
         posts_count=Count('owner__post', distinct=True),
         follower_count=Count(
-            'owner__following', distinct=True)).order_by('-created_date')
+            'owner__follower', distinct=True),
+        following_count=Count('owner__following', distinct=True)
+    ).order_by('-created_date')
     serializer_class = UserSerializer
     filter_backends = [
         filters.OrderingFilter,
@@ -26,7 +28,7 @@ class UserList(generics.ListAPIView):
     ]
     filterset_fields = [
         'owner__follower__following__profile',
-        'owner__following__follower__profile'
+        'owner__following__follower__profile',
     ]
     search_fields = ['owner__username']
 
@@ -36,5 +38,7 @@ class UserDetails(generics.RetrieveUpdateAPIView):
     queryset = Profile.objects.annotate(
         posts_count=Count('owner__post', distinct=True),
         follower_count=Count(
-            'owner__following', distinct=True)).order_by('-created_date')
+            'owner__follower', distinct=True),
+        following_count=Count('owner__following', distinct=True)
+    ).order_by('-created_date')
     serializer_class = UserSerializer
