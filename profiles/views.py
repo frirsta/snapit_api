@@ -29,7 +29,7 @@ class UserList(generics.ListAPIView):
     ]
     filterset_fields = [
         'owner__follower__following__profile',
-        'owner__following__follower__profile',
+        'owner__following__owner__profile',
     ]
     search_fields = ['owner__username']
 

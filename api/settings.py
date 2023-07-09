@@ -78,7 +78,6 @@ INSTALLED_APPS = [
     'profiles',
     'posts',
     'followers',
-    'video',
 ]
 
 SITE_ID = 1
