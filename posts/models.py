@@ -7,7 +7,7 @@ class Post(models.Model):
     """
     post model
     """
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='owner')
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
     caption = models.TextField(max_length=250)

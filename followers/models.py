@@ -11,7 +11,7 @@ class Follower(models.Model):
     following = models.ForeignKey(User, on_delete=models.CASCADE, related_name='following')
 
     class Meta:
-        ordering = ['created_date']
+        ordering = ['-created_date']
         unique_together = ['owner', 'following']
 
     def __str__(self):

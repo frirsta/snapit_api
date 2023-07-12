@@ -14,7 +14,7 @@ class Profile(models.Model):
     profile_image = models.ImageField(upload_to='snapit/', default='user')
 
     class Meta:
-        ordering = ['created_date']
+        ordering = ['-created_date']
 
     def __str__(self):
         return f'{self.owner}'

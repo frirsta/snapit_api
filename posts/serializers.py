@@ -5,8 +5,8 @@ from .models import Post
 class PostSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
-    profile_id = serializers.ReadOnlyField(source='owner.id')
-    owner_id = serializers.ReadOnlyField(source='owner.id')
+    profile_id = serializers.ReadOnlyField(source='owner.profile.id')
+    owner_id = serializers.ReadOnlyField(source='owner.profile.id')
     profile_image = serializers.ReadOnlyField(
         source='owner.profile.profile_image.url')
 

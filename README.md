@@ -22,3 +22,7 @@ pip install Pillow
 
 Install Pillow
 pip install python-magic-bin
+pip install -r requirements.txt
+pip install django djangorestframework
+pip install dj-rest-auth django-allauth
+pip install djangorestframework-simplejwt
