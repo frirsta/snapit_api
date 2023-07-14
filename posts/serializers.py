@@ -14,9 +14,9 @@ class PostSerializer(serializers.ModelSerializer):
         """
         Throw error 
         """
-        if value.size > 1024 * 1024 * 2:
+        if value.size > 1024 * 1024 * 4:
             raise serializers.ValidationError(
-                'Image size larger than 2MB'
+                'Image size larger than 4MB'
             )
         if value.image.width > 4096:
             raise serializers.ValidationError(
