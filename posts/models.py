@@ -10,7 +10,7 @@ class Post(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
     caption = models.TextField(max_length=250)
-    post_image = models.ImageField(upload_to='snapit/', blank=True)
+    post_image = models.ImageField(upload_to='snapit/')
     video = models.FileField(upload_to='snapit/', blank=True, storage=VideoMediaCloudinaryStorage())
 
     class Meta:
