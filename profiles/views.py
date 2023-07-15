@@ -11,7 +11,7 @@ from django.db.models import Count
 class UserList(generics.ListAPIView):
     permission_classes = [IsOwnerOrReadOnly]
     queryset = Profile.objects.annotate(
-        posts_count=Count('owner__owner', distinct=True),
+        posts_count=Count('owner__post', distinct=True),
         follower_count=Count(
             'owner__follower', distinct=True),
         following_count=Count('owner__following', distinct=True)
@@ -37,7 +37,7 @@ class UserList(generics.ListAPIView):
 class UserDetails(generics.RetrieveUpdateAPIView):
     permission_classes = [IsOwnerOrReadOnly]
     queryset = Profile.objects.annotate(
-        posts_count=Count('owner__owner', distinct=True),
+        posts_count=Count('owner__post', distinct=True),
         follower_count=Count(
             'owner__follower', distinct=True),
         following_count=Count('owner__following', distinct=True)

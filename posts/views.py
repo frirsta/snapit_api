@@ -13,11 +13,13 @@ class PostList(generics.ListCreateAPIView):
         filters.SearchFilter, DjangoFilterBackend]
     filterset_fields = [
         'owner__profile',
-        'owner__following__owner__profile'
     ]
     search_fields = [
-        'owner__username'
+        'owner__username',
+        'caption'
     ]
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
 
 class PostDetails(generics.RetrieveUpdateAPIView):

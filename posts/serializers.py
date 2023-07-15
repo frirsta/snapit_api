@@ -6,26 +6,23 @@ class PostSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
-    owner_id = serializers.ReadOnlyField(source='owner.profile.id')
     profile_image = serializers.ReadOnlyField(
         source='owner.profile.profile_image.url')
 
-    def validate_image(self, value):
+
+    def validate_post_image(self, value):
         """
-        Throw error 
+        Throws error if the image width or height is larger than 4096px
         """
         if value.size > 1024 * 1024 * 4:
             raise serializers.ValidationError(
-                'Image size larger than 4MB'
-            )
+                'Image size larger than 4MB!')
         if value.image.width > 4096:
             raise serializers.ValidationError(
-                'Image width larger than 4096px'
-            )
+                'Image width larger than 4096px!')
         if value.image.height > 4096:
             raise serializers.ValidationError(
-                'Image height larger than 4096px'
-            )
+                'Image height larger than 4096px!')
         return value
 
     def get_is_owner(self, obj):
@@ -34,6 +31,8 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ['owner', 'is_owner', 'id', 'created_date',
-                  'updated_date', 'caption', 'image', 'profile_image',
-                  'profile_id', 'owner_id', 'image', 'file']
+        fields = [
+            'owner', 'created_date', 'updated_date',
+            'caption', 'post_image', 'profile_image',
+            'is_owner', 'profile_id', 'id',
+        ]
