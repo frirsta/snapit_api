@@ -22,7 +22,7 @@ class PostList(generics.ListCreateAPIView):
         serializer.save(owner=self.request.user)
 
 
-class PostDetails(generics.RetrieveUpdateAPIView):
+class PostDetails(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]

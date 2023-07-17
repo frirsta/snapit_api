@@ -31,6 +31,9 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
+        extra_kwargs = {
+            'post_image':{"read_only":True}
+        }
         fields = [
             'owner', 'created_date', 'updated_date',
             'caption', 'post_image', 'profile_image',
