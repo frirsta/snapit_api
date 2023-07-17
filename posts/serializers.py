@@ -2,13 +2,25 @@ from rest_framework import serializers
 from .models import Post
 
 
-class PostSerializer(serializers.ModelSerializer):
+class UpdateMixin(serializers.ModelSerializer):
+    def get_extra_kwargs(self):
+        kwargs = super().get_extra_kwargs()
+        no_update_fields = getattr(self.Meta, "no_update_fields", None)
+
+        if self.instance and no_update_fields:
+            for field in no_update_fields:
+                kwargs.setdefault(field, {})
+                kwargs[field]["read_only"] = True
+
+        return kwargs
+
+
+class PostSerializer(UpdateMixin, serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
     profile_image = serializers.ReadOnlyField(
         source='owner.profile.profile_image.url')
-
 
     def validate_post_image(self, value):
         """
@@ -31,9 +43,7 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        extra_kwargs = {
-            'post_image':{"read_only":True}
-        }
+        no_update_fields = ["post_image"]
         fields = [
             'owner', 'created_date', 'updated_date',
             'caption', 'post_image', 'profile_image',
