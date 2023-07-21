@@ -18,6 +18,7 @@ class UpdateMixin(serializers.ModelSerializer):
 class PostSerializer(UpdateMixin, serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
+    comments_count = serializers.ReadOnlyField()
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
     profile_image = serializers.ReadOnlyField(
         source='owner.profile.profile_image.url')
@@ -47,5 +48,5 @@ class PostSerializer(UpdateMixin, serializers.ModelSerializer):
         fields = [
             'owner', 'created_date', 'updated_date',
             'caption', 'post_image', 'profile_image',
-            'is_owner', 'profile_id', 'id',
+            'is_owner', 'profile_id', 'id', 'comments_count'
         ]
