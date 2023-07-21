@@ -7,7 +7,9 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 class PostList(generics.ListCreateAPIView):
     queryset = Post.objects.annotate(
-        comments_count=Count('comment', distinct=True)
+        comments_count=Count('comment', distinct=True),
+        likes_count=Count('likes', distinct=True),
+        favorite_count=Count('favorite', distinct=True),
     ).order_by('-created_date')
     serializer_class = PostSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
@@ -15,9 +17,13 @@ class PostList(generics.ListCreateAPIView):
         filters.SearchFilter, DjangoFilterBackend, filters.OrderingFilter]
     filterset_fields = [
         'owner__profile',
+        'likes__owner__profile',
+        'favorite__owner__profile',
     ]
     ordering_fields = [
         'comments_count',
+        'likes_count',
+        'favorite_count',
     ]
     search_fields = [
         'owner__username',
@@ -30,7 +36,9 @@ class PostList(generics.ListCreateAPIView):
 
 class PostDetails(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.annotate(
-        comments_count=Count('comment', distinct=True)
+        comments_count=Count('comment', distinct=True),
+        likes_count=Count('likes', distinct=True),
+        favorite_count=Count('favorite', distinct=True),
     ).order_by('-created_date')
 
     serializer_class = PostSerializer
@@ -39,6 +47,8 @@ class PostDetails(generics.RetrieveUpdateDestroyAPIView):
         filters.SearchFilter, filters.OrderingFilter]
     ordering_fields = [
         'comments_count',
+        'likes_count',
+        'favorite_count',
     ]
     search_fields = [
         'owner__username',

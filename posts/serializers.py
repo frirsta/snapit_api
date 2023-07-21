@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from .models import Post
+from likes.models import Like
+from favorite.models import Favorite
 
 
 class UpdateMixin(serializers.ModelSerializer):
@@ -19,6 +21,10 @@ class PostSerializer(UpdateMixin, serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
     comments_count = serializers.ReadOnlyField()
+    likes_id = serializers.SerializerMethodField()
+    likes_count = serializers.ReadOnlyField()
+    favorite_id = serializers.SerializerMethodField()
+    favorite_count = serializers.ReadOnlyField()
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
     profile_image = serializers.ReadOnlyField(
         source='owner.profile.profile_image.url')
@@ -42,11 +48,31 @@ class PostSerializer(UpdateMixin, serializers.ModelSerializer):
         request = self.context['request']
         return request.user == obj.owner
 
+    def get_likes_id(self, obj):
+        user = self.context['request'].user
+        if user.is_authenticated:
+            likes = Like.objects.filter(
+                owner=user, post=obj
+            ).first()
+            return likes.id if likes else None
+            print(likes)
+        return None
+
+    def get_favorite_id(self, obj):
+        user = self.context['request'].user
+        if user.is_authenticated:
+            favorite = Favorite.objects.filter(
+                owner=user, post=obj
+            ).first()
+            return favorite.id if favorite else None
+        return None
+
     class Meta:
         model = Post
         no_update_fields = ["post_image"]
         fields = [
             'owner', 'created_date', 'updated_date',
             'caption', 'post_image', 'profile_image',
-            'is_owner', 'profile_id', 'id', 'comments_count'
+            'is_owner', 'profile_id', 'id', 'comments_count',
+            'likes_id', 'likes_count','favorite_id', 'favorite_count',
         ]
